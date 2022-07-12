@@ -17,7 +17,7 @@ jobs:
           submodules: true
 
       - name: Add pseudo output
-        run: mkdir physmon && cp physmon.zip physmon/
+        run: mkdir physmon && cp src_physmon.zip physmon/
 
       - name: Save PR number
         if: ${{ github.event_name == 'pull_request' }}
