@@ -40,15 +40,18 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             let fs = require('fs');
-            let file = 'physmon/pr_url';
+            let file = 'physmon/pr_number';
             if(!fs.existsSync(file)) {
+              console.log('No file at '+file);
               return;
             }
+
             
-            let issue_number = Number(fs.readFileSync(file));
+            let number = Number(fs.readFileSync(file));
+            console.log('PR number is '+number);
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: issue_number,
-              body: 'Thank you for the PR!'
+              body: 'HALLO'
             });
