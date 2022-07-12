@@ -41,7 +41,7 @@ jobs:
           script: |
             let fs = require('fs');
             let file = 'physmin/pr_url''
-            if !fs.fileExistsSync(file) {
+            if(!fs.fileExistsSync(file)) {
               return;
             }
             
