@@ -40,7 +40,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             let fs = require('fs');
-            let file = 'physmin/pr_url''
+            let file = 'physmin/pr_url';
             if(!fs.fileExistsSync(file)) {
               return;
             }
