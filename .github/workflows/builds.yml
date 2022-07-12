@@ -18,7 +18,7 @@ jobs:
 
       - name: Add pseudo output
         # run: mkdir physmon && cp src_physmon.zip physmon/
-        run: unzip src_physmon.zip
+        run: unzip -d physmon src_physmon.zip
 
       - name: Save PR number
         if: ${{ github.event_name == 'pull_request' }}
