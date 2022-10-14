@@ -44,7 +44,7 @@ jobs:
             let file = 'physmon/pr_number';
             if(!fs.existsSync(file)) {
               console.log('No file at ' + file);
-              return "false";
+              return false;
             }
 
             
