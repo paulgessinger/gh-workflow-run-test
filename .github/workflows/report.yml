@@ -43,8 +43,8 @@ jobs:
             let fs = require('fs');
             let file = 'physmon/pr_number';
             if(!fs.existsSync(file)) {
-              console.log('No file at '+file);
-              return;
+              console.log('No file at ' + file);
+              return "";
             }
 
             
@@ -52,19 +52,21 @@ jobs:
             console.log('PR number is '+number);
             return number;
 
-			- name: Find Comment
-				uses: peter-evans/find-comment@v2
-				id: fc
-				with:
-					issue-number: ${{ steps.get-pr-number.outputs.result }}
-					comment-author: 'github-actions[bot]'
-					body-includes: HALLO
+      - name: Find Comment
+        uses: peter-evans/find-comment@v2
+        id: fc
+        if: steps.get-pr-number.outputs.result != ''
+        with:
+          issue-number: ${{ steps.get-pr-number.outputs.result }}
+          comment-author: 'github-actions[bot]'
+          body-includes: HALLO
 
-			- name: Create or update comment
-				uses: peter-evans/create-or-update-comment@v2
-				with:
-					comment-id: ${{ steps.fc.outputs.comment-id }}
-					issue-number: ${{ steps.get-pr-number.outputs.result }}
-					body: |
-						HALLO 2
-					edit-mode: replace
+      - name: Create or update comment
+        uses: peter-evans/create-or-update-comment@v2
+        if: steps.get-pr-number.outputs.result != ''
+        with:
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+          issue-number: ${{ steps.get-pr-number.outputs.result }}
+          body: |
+            HALLO 2
+          edit-mode: replace
