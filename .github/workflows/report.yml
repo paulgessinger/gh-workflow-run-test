@@ -34,7 +34,7 @@ jobs:
       - name: 'Unzip artifact'
         run: unzip -d physmon physmon.zip && ls -al && ls -al physmon
 
-      - name: 'Comment on PR'
+      - name: 'Determine PR number'
         uses: actions/github-script@v6
         id: get-pr-number
         with:
@@ -53,17 +53,17 @@ jobs:
             return number;
 
       - name: Find Comment
+        if: steps.get-pr-number.outputs.result != 'false'
         uses: peter-evans/find-comment@v2
         id: fc
-        if: ${{ steps.get-pr-number.outputs.result != 'false' }}
         with:
           issue-number: ${{ steps.get-pr-number.outputs.result }}
           comment-author: 'github-actions[bot]'
           body-includes: HALLO
 
       - name: Create or update comment
+        if: steps.get-pr-number.outputs.result != 'false'
         uses: peter-evans/create-or-update-comment@v2
-        if: ${{ steps.get-pr-number.outputs.result != 'false' }}
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ steps.get-pr-number.outputs.result }}
