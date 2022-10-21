@@ -68,7 +68,8 @@ jobs:
         if: steps.get-pr-number.outputs.result != 'false'
 
       # ping the url, triggers caching of the artifact
-      - run: curl $ARTIFACT_URL
+      - name: Prime cache
+        run: curl -L $ARTIFACT_URL
         if: steps.get-pr-number.outputs.result != 'false'
 
       - name: Render template
