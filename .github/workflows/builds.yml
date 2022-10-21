@@ -23,8 +23,9 @@ jobs:
       - name: Save PR number
         if: ${{ github.event_name == 'pull_request' }}
         run: |
+          echo '${{ toJSON(github)  }}'
           echo ${{ github.event.number }} > physmon/pr_number
-          echo ${{ github.event.head.sha }} > physmon/sha
+          echo ${{ github.event.pull_request.head.sha }} > physmon/sha
 
       - uses: actions/upload-artifact@v3
         if: always()
