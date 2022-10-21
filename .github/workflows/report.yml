@@ -56,6 +56,12 @@ jobs:
             
             let number = Number(fs.readFileSync(file));
             console.log('PR number is '+number);
+            core.exportVariable('PR_NUMBER', number)
+
+            let sha = fs.readFileSync('physmon/sha'));
+            console.log('SHA is '+sha);
+            core.exportVariable('PR_SHA', number)
+
             return number;
 
       - uses: actions/checkout@v3
@@ -69,7 +75,7 @@ jobs:
           template: comment_template.md
           vars: |
             url: ${{ env.ARTIFACT_URL }}
-            commit: ${{ github.sha }}
+            commit: ${{ env.PR_SHA }}
 
       - name: Find Comment
         if: steps.get-pr-number.outputs.result != 'false'
