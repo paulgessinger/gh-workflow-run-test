@@ -6,7 +6,7 @@
 
 <details>
   <summary><b>Vertexing</b></summary>
-  <img src="{{ .url }}/truth_tracking_plots/nHoles_vs_eta.pdf?to_png=1" width="400"/>
+  <img src="{{ .url }}/vertexing_mu_scan.pdf?to_png=1" width="400"/>
 </details>
 
 <details>
