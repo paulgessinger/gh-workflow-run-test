@@ -65,7 +65,11 @@ jobs:
             return number;
 
       - uses: actions/checkout@v3
-      - run: ls -al
+        if: steps.get-pr-number.outputs.result != 'false'
+
+      # ping the url, triggers caching of the artifact
+      - runs: curl $ARTIFACT_URL
+        if: steps.get-pr-number.outputs.result != 'false'
 
       - name: Render template
         id: template
