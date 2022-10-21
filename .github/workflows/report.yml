@@ -34,8 +34,6 @@ jobs:
             let = url = `https://herald.dokku.paulgessinger.com/view/${process.env.GITHUB_REPOSITORY}/${matchArtifact.id}`;
 
             core.exportVariable('ARTIFACT_URL', url)
-            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/comment.md`, output);
-            return output;
             
       - name: Render template
         id: template
