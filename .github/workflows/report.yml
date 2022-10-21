@@ -12,6 +12,7 @@ jobs:
     steps:
       - name: 'Download artifact'
         uses: actions/github-script@v6
+        id: dl-af
         with:
           script: |
             let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
@@ -30,6 +31,7 @@ jobs:
             });
             let fs = require('fs');
             fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/physmon.zip`, Buffer.from(download.data));
+            return matchArtifact.id;
 
       - name: 'Unzip artifact'
         run: unzip -d physmon physmon.zip && ls -al && ls -al physmon
@@ -68,5 +70,5 @@ jobs:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ steps.get-pr-number.outputs.result }}
           body: |
-            HALLO 2
+            HALLO 2 ${{ steps.dl-af.outputs.result }}
           edit-mode: replace
