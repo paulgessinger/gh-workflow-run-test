@@ -39,7 +39,7 @@ jobs:
         id: template
         uses: chuhlomin/render-template@v1.4
         with:
-          template: comment_template.md
+          template: ${{ env.GITHUB_WORKSPACE }}/comment_template.md
           vars: |
             url: ${{ env.ARTIFACT_URL }}
 
