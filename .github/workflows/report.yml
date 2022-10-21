@@ -31,7 +31,54 @@ jobs:
             });
             let fs = require('fs');
             fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/physmon.zip`, Buffer.from(download.data));
-            return `https://herald.dokku.paulgessinger.com/view/${process.env.GITHUB_REPOSITORY}/${matchArtifact.id}`;
+            let = url = `https://herald.dokku.paulgessinger.com/view/${process.env.GITHUB_REPOSITORY}/${matchArtifact.id}`;
+
+            output = `
+            ## :bar_chart: Physics performance monitoring for 9dea9469541d03926e5181b66e09fb446f92edb
+            [Full report](${url}/)
+            [CKF seeded](${url}/ckf_seeded.html)
+            [CKF truth smeared](${url}/ckf_truth_smeared.html)
+            [CKF truth estimated](${url}/ckf_truth_estimated.html)
+
+            <details>
+              <summary><b>Vertexing</b></summary>
+              <img src="${url}/truth_tracking_plots/nHoles_vs_eta.pdf?to_png=1" width="400"/>
+            </details>
+
+            <details>
+              <summary><b>CKF seeded</b></summary>
+              <img src="${url}/ckf_seeded_plots/trackeff_vs_eta.pdf?to_png=1" width="50%"/><img src="${url}/ckf_seeded_plots/trackeff_vs_pT.pdf?to_png=1" width="50%"/>
+
+              <img src="${url}/ckf_seeded_plots/nHoles_vs_eta.pdf?to_png=1" width="50%"/><img src="${url}/ckf_seeded_plots/nMeasurements_vs_eta.pdf?to_png=1" width="50%"/>
+            </details>
+
+            <details>
+              <summary><b>CKF truth smeared</b></summary>
+              <img src="${url}/ckf_truth_smeared_plots/trackeff_vs_eta.pdf?to_png=1" width="50%"/><img src="${url}/ckf_truth_smeared_plots/trackeff_vs_pT.pdf?to_png=1" width="50%"/>
+
+              <img src="${url}/ckf_truth_smeared_plots/nHoles_vs_eta.pdf?to_png=1" width="50%"/><img src="${url}/ckf_truth_smeared_plots/nMeasurements_vs_eta.pdf?to_png=1" width="50%"/>
+            </details>
+
+            <details>
+              <summary><b>CKF truth estimated</b></summary>
+              <img src="${url}/ckf_truth_estimated_plots/trackeff_vs_eta.pdf?to_png=1" width="50%"/><img src="${url}/ckf_truth_estimated_plots/trackeff_vs_pT.pdf?to_png=1" width="50%"/>
+
+              <img src="${url}/ckf_truth_estimated_plots/nHoles_vs_eta.pdf?to_png=1" width="50%"/><img src="${url}/ckf_truth_estimated_plots/nMeasurements_vs_eta.pdf?to_png=1" width="50%"/>
+            </details>
+
+            <details>
+              <summary><b>Truth tracking</b></summary>
+              <img src="${url}/truth_tracking_plots/nHoles_vs_eta.pdf?to_png=1" width="50%"/><img src="${url}/truth_tracking_plots/nMeasurements_vs_eta.pdf?to_png=1" width="50%"/>
+
+              <img src="${url}/truth_tracking_plots/pull_d0.pdf?to_png=1" width="50%"/><img src="${url}/truth_tracking_plots/pull_z0.pdf?to_png=1" width="50%"/>
+
+              <img src="${url}/truth_tracking_plots/pull_theta.pdf?to_png=1" width="50%"/><img src="${url}/truth_tracking_plots/pull_phi.pdf?to_png=1" width="50%"/>
+
+              <img src="${url}/truth_tracking_plots/pull_qop.pdf?to_png=1" width="50%"/><img src="${url}/truth_tracking_plots/pull_t.pdf?to_png=1" width="50%"/>
+            </details>
+            `;
+            # fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/comment.md`, output);
+            return output;
 
       - name: 'Unzip artifact'
         run: unzip -d physmon physmon.zip && ls -al && ls -al physmon
@@ -69,47 +116,5 @@ jobs:
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ steps.get-pr-number.outputs.result }}
-          body: |
-            ## :bar_chart: Physics performance monitoring for 9dea9469541d03926e5181b66e09fb446f92edbc
-            [Full report](${{ steps.dl-af.outputs.result }}/)
-            [CKF seeded](${{ steps.dl-af.outputs.result }}/ckf_seeded.html)
-            [CKF truth smeared](${{ steps.dl-af.outputs.result }}/ckf_truth_smeared.html)
-            [CKF truth estimated](${{ steps.dl-af.outputs.result }}/ckf_truth_estimated.html)
-
-            <details>
-              <summary><b>Vertexing</b></summary>
-              <img src="${{ steps.dl-af.outputs.result }}/truth_tracking_plots/nHoles_vs_eta.pdf?to_png=1" width="400"/>
-            </details>
-
-            <details>
-              <summary><b>CKF seeded</b></summary>
-              <img src="${{ steps.dl-af.outputs.result }}/ckf_seeded_plots/trackeff_vs_eta.pdf?to_png=1" width="50%"/><img src="${{ steps.dl-af.outputs.result }}/ckf_seeded_plots/trackeff_vs_pT.pdf?to_png=1" width="50%"/>
-
-              <img src="${{ steps.dl-af.outputs.result }}/ckf_seeded_plots/nHoles_vs_eta.pdf?to_png=1" width="50%"/><img src="${{ steps.dl-af.outputs.result }}/ckf_seeded_plots/nMeasurements_vs_eta.pdf?to_png=1" width="50%"/>
-            </details>
-
-            <details>
-              <summary><b>CKF truth smeared</b></summary>
-              <img src="${{ steps.dl-af.outputs.result }}/ckf_truth_smeared_plots/trackeff_vs_eta.pdf?to_png=1" width="50%"/><img src="${{ steps.dl-af.outputs.result }}/ckf_truth_smeared_plots/trackeff_vs_pT.pdf?to_png=1" width="50%"/>
-
-              <img src="${{ steps.dl-af.outputs.result }}/ckf_truth_smeared_plots/nHoles_vs_eta.pdf?to_png=1" width="50%"/><img src="${{ steps.dl-af.outputs.result }}/ckf_truth_smeared_plots/nMeasurements_vs_eta.pdf?to_png=1" width="50%"/>
-            </details>
-
-            <details>
-              <summary><b>CKF truth estimated</b></summary>
-              <img src="${{ steps.dl-af.outputs.result }}/ckf_truth_estimated_plots/trackeff_vs_eta.pdf?to_png=1" width="50%"/><img src="${{ steps.dl-af.outputs.result }}/ckf_truth_estimated_plots/trackeff_vs_pT.pdf?to_png=1" width="50%"/>
-
-              <img src="${{ steps.dl-af.outputs.result }}/ckf_truth_estimated_plots/nHoles_vs_eta.pdf?to_png=1" width="50%"/><img src="${{ steps.dl-af.outputs.result }}/ckf_truth_estimated_plots/nMeasurements_vs_eta.pdf?to_png=1" width="50%"/>
-            </details>
-
-            <details>
-              <summary><b>Truth tracking</b></summary>
-              <img src="${{ steps.dl-af.outputs.result }}/truth_tracking_plots/nHoles_vs_eta.pdf?to_png=1" width="50%"/><img src="${{ steps.dl-af.outputs.result }}/truth_tracking_plots/nMeasurements_vs_eta.pdf?to_png=1" width="50%"/>
-
-              <img src="${{ steps.dl-af.outputs.result }}/truth_tracking_plots/pull_d0.pdf?to_png=1" width="50%"/><img src="${{ steps.dl-af.outputs.result }}/truth_tracking_plots/pull_z0.pdf?to_png=1" width="50%"/>
-
-              <img src="${{ steps.dl-af.outputs.result }}/truth_tracking_plots/pull_theta.pdf?to_png=1" width="50%"/><img src="${{ steps.dl-af.outputs.result }}/truth_tracking_plots/pull_phi.pdf?to_png=1" width="50%"/>
-
-              <img src="${{ steps.dl-af.outputs.result }}/truth_tracking_plots/pull_qop.pdf?to_png=1" width="50%"/><img src="${{ steps.dl-af.outputs.result }}/truth_tracking_plots/pull_t.pdf?to_png=1" width="50%"/>
-            </details>
-          edit-mode: replace
+          body: ${{ steps.dl-af.outputs.result }}
+        edit-mode: replace
