@@ -39,6 +39,8 @@ jobs:
       - name: 'Unzip artifact'
         run: unzip -d physmon physmon.zip && ls -al && ls -al physmon
 
+      - run: ls -al
+
       - name: 'Determine PR number'
         uses: actions/github-script@v6
         id: get-pr-number
