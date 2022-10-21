@@ -7,7 +7,7 @@ on:
       - completed
 
 jobs:
-  download:
+  post_comment:
     runs-on: ubuntu-latest
     steps:
       - name: 'Download artifact'
@@ -69,6 +69,7 @@ jobs:
           template: comment_template.md
           vars: |
             url: ${{ env.ARTIFACT_URL }}
+            commit: ${{ github.sha }}
 
       - name: Find Comment
         if: steps.get-pr-number.outputs.result != 'false'
