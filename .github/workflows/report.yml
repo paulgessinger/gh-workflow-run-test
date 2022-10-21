@@ -60,7 +60,7 @@ jobs:
 
             let sha = fs.readFileSync('physmon/sha');
             console.log('SHA is '+sha);
-            core.exportVariable('PR_SHA', number)
+            core.exportVariable('PR_SHA', sha)
 
             return number;
 
