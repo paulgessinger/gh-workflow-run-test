@@ -35,13 +35,6 @@ jobs:
 
             core.exportVariable('ARTIFACT_URL', url)
             
-      - name: Render template
-        id: template
-        uses: chuhlomin/render-template@v1.4
-        with:
-          template: ${{ env.GITHUB_WORKSPACE }}/comment_template.md
-          vars: |
-            url: ${{ env.ARTIFACT_URL }}
 
       - name: 'Unzip artifact'
         run: unzip -d physmon physmon.zip && ls -al && ls -al physmon
@@ -63,6 +56,15 @@ jobs:
             let number = Number(fs.readFileSync(file));
             console.log('PR number is '+number);
             return number;
+
+      - name: Render template
+        id: template
+        uses: chuhlomin/render-template@v1.4
+        if: steps.get-pr-number.outputs.result != 'false'
+        with:
+          template: ${{ env.GITHUB_WORKSPACE }}/comment_template.md
+          vars: |
+            url: ${{ env.ARTIFACT_URL }}
 
       - name: Find Comment
         if: steps.get-pr-number.outputs.result != 'false'
