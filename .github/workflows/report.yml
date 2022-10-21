@@ -58,7 +58,7 @@ jobs:
             console.log('PR number is '+number);
             core.exportVariable('PR_NUMBER', number)
 
-            let sha = fs.readFileSync('physmon/sha'));
+            let sha = fs.readFileSync('physmon/sha');
             console.log('SHA is '+sha);
             core.exportVariable('PR_SHA', number)
 

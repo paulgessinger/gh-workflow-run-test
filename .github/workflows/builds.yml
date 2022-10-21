@@ -24,7 +24,7 @@ jobs:
         if: ${{ github.event_name == 'pull_request' }}
         run: |
           echo ${{ github.event.number }} > physmon/pr_number
-          echo ${{ github.sha }} > physmon/sha
+          echo ${{ github.event.head.sha }} > physmon/sha
 
       - uses: actions/upload-artifact@v3
         if: always()
