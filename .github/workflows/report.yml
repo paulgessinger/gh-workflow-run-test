@@ -68,7 +68,7 @@ jobs:
         if: steps.get-pr-number.outputs.result != 'false'
 
       # ping the url, triggers caching of the artifact
-      - runs: curl $ARTIFACT_URL
+      - run: curl $ARTIFACT_URL
         if: steps.get-pr-number.outputs.result != 'false'
 
       - name: Render template
